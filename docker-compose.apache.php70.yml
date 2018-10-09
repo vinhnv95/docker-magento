@@ -1,11 +1,11 @@
 version: '3'
 services:
-  apache71:
+  apache70:
     build:
         context: ./apache
-        dockerfile: Dockerfile.php71
+        dockerfile: Dockerfile.php70
     ports:
-      - 8071:80
+      - 8070:80
     volumes:
       - ./magento:/var/www/html
     networks:

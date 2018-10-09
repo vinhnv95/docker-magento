@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Apache ENV
-source "$APACHE_ENVVARS"
-chown -Rf "$APACHE_RUN_USER" /var/www/html
+chmod -R 777 .
 
 # Start apache2
 apache2-foreground
