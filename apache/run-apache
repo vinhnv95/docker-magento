@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Apache ENV
+source "$APACHE_ENVVARS"
+chown -Rf "$APACHE_RUN_USER" /var/www/html
+
+# Start apache2
+apache2-foreground
