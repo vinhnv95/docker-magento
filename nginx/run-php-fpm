@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Apache ENV
+chmod -R 777 .
+
+# Start PHP FPM
+php-fpm
