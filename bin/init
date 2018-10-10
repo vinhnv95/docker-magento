@@ -6,5 +6,7 @@ cd magento/
 for folder in $folders; do
     mkdir $folder
     cp .htaccess $folder
+    cp install_magento $folder
+    chmod +x $folder/install_magento
 done
 cd -
