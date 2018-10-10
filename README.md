@@ -43,5 +43,5 @@ cd Magento-CE-2.1.13
 # ../install_magento apache56_magentoce2113 "http://m2.io:8056/$(basename $PWD)/"
 ```
 
-Admin URL: http://m2.io:8056/Magento-CE-2.1.13/admin
-User/Pass: admin/admin123
+- Admin URL: http://m2.io:8056/Magento-CE-2.1.13/admin
+- User/Pass: admin/admin123
