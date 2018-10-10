@@ -7,6 +7,6 @@ services:
     ports:
       - 8056:80
     volumes:
-      - ./magento:/var/www/html
+      - ./magento/apache56:/var/www/html
     networks:
       - webnet

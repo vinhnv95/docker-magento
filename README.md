@@ -16,6 +16,7 @@ docker-compose up
 
 ## Multiple Services
 ```sh
+bin/init
 docker-compose -f docker-compose.yml \
     -f docker-compose.apache.php56.yml \
     -f docker-compose.apache.php70.yml \

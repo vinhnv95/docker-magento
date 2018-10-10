@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Init project
+folders="apache56 apache70 apache71"
+cd magento/
+for folder in $folders; do
+    mkdir $folder
+    cp .htaccess $folder
+done
+cd -
