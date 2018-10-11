@@ -28,6 +28,13 @@ docker-compose -f docker-compose.yml \
 - Apache PHP 7.0: http://m2.io:8070/
 - Apache PHP 7.1: http://m2.io:8071/
 
+- Nginx PHP 5.6 - CE 2.1.13: http://m2.io:8560/
+- Nginx PHP 5.6 - EE 2.1.15: http://m2.io:8561/
+- Nginx PHP 7.0 - CE 2.1.13: http://m2.io:8700/
+- Nginx PHP 7.0 - EE 2.1.15: http://m2.io:8701/
+- Nginx PHP 7.1 - CE 2.2.6: http://m2.io:8710/
+- Nginx PHP 7.1 - EE 2.2.6: http://m2.io:8711/
+
 ## SSH To Container
 ```sh
 docker exec -u www-data -it {container_name} /bin/bash
@@ -41,6 +48,7 @@ docker exec -u www-data -it {container_name} /bin/bash
 cd Magento-CE-2.1.13
 ../install_magento DATABASE_NAME URL
 # ../install_magento apache56_magentoce2113 "http://m2.io:8056/$(basename $PWD)/"
+# ../install_magento nginx56_magentoce2113 http://m2.io:8560/
 ```
 
 - Admin URL: http://m2.io:8056/Magento-CE-2.1.13/admin

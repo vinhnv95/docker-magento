@@ -1,0 +1,20 @@
+version: '3'
+services:
+  fpm71:
+    build:
+        context: ./nginx
+        dockerfile: Dockerfile.php71
+    volumes:
+      - ./magento/nginx71:/var/www/html
+    networks:
+      - webnet
+
+  nginx71:
+    image: nginx
+    ports:
+      - 8710-8719:80-89
+    volumes:
+      - ./magento/nginx71:/var/www/html
+      - ./nginx/default.php71.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - webnet
