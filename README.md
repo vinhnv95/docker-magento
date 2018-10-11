@@ -21,6 +21,9 @@ docker-compose -f docker-compose.yml \
     -f docker-compose.apache.php56.yml \
     -f docker-compose.apache.php70.yml \
     -f docker-compose.apache.php71.yml \
+    -f docker-compose.nginx.php56.yml \
+    -f docker-compose.nginx.php70.yml \
+    -f docker-compose.nginx.php71.yml \
     up
 ```
 

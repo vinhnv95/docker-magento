@@ -1,0 +1,20 @@
+version: '3'
+services:
+  fpm56:
+    build:
+        context: ./nginx
+        dockerfile: Dockerfile.php56
+    volumes:
+      - ./magento/nginx56:/var/www/html
+    networks:
+      - webnet
+
+  nginx56:
+    image: nginx
+    ports:
+      - 8560-8569:80-89
+    volumes:
+      - ./magento/nginx56:/var/www/html
+      - ./nginx/default.php56.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - webnet
