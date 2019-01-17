@@ -3,6 +3,7 @@ pipeline {
         docker {
             image 'magestore/compose'
             args '-u root:root -v /var/run/docker.sock:/var/run/docker.sock -v $JENKINS_DATA:$JENKINS_DATA -e JENKINS_DATA=$JENKINS_DATA'
+            label 'docker-magento'
         }
     }
     parameters {
