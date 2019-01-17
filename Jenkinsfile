@@ -6,7 +6,7 @@ pipeline {
         }
     }
     parameters {
-        credentials(name: 'GITHUB_USER', description: 'Github username and password', credentialType: "Username with password", required: true)
+        credentials(name: 'GITHUB_USER', description: 'Github username and password', defaultValue: 'c005e544-9ad8-48be-ba44-a0f6d519a2ec', credentialType: "Username with password", required: true)
     }
     environment {
         CI = 'true'
