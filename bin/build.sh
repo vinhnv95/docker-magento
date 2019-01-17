@@ -7,4 +7,6 @@ if [[ ! -z "${JENKINS_DATA}" ]]; then
 fi
 
 # Build script here
+HASH_NAME=`echo -n "$HTTP_SERVER-$PHP_VERSION-$MAGENTO_VERSION-$GITHUB_REPO-$GITHUB_BRANCH" | shasum | cut -d' ' -f 1`
+
 env
