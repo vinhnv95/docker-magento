@@ -9,6 +9,16 @@ fi
 # Build script here
 HASH_NAME=`echo -n "$HTTP_SERVER-$PHP_VERSION-$MAGENTO_VERSION-$GITHUB_REPO-$GITHUB_BRANCH" | sha1sum | cut -d' ' -f 1`
 
-echo $HASH_NAME
+if [ -d "$HASH_NAME" ]; then
+    echo 'Server is running...'
+    sleep $TIME_TO_LIVE
+    exit
+fi
 
+mkdir $HASH_NAME && cd $HASH_NAME
+
+# Start server
 env
+
+# Living time
+sleep $TIME_TO_LIVE
