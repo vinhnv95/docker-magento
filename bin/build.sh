@@ -17,7 +17,7 @@ fi
 
 mkdir $HASH_NAME && cd $HASH_NAME
 
-# Start server
+# TODO: Start service
 env
 
 # Living time

@@ -11,6 +11,6 @@ HASH_NAME=`echo -n "$HTTP_SERVER-$PHP_VERSION-$MAGENTO_VERSION-$GITHUB_REPO-$GIT
 
 if [ -d "$HASH_NAME" ]; then
     cd $HASH_NAME
-    # Stop service
+    # TODO: Stop service
     cd .. && rm -rf $HASH_NAME
 fi
