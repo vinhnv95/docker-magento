@@ -9,4 +9,6 @@ fi
 # Build script here
 HASH_NAME=`echo -n "$HTTP_SERVER-$PHP_VERSION-$MAGENTO_VERSION-$GITHUB_REPO-$GITHUB_BRANCH" | sha1sum | cut -d' ' -f 1`
 
+echo $HASH_NAME
+
 env
