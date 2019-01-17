@@ -5,6 +5,9 @@ pipeline {
             args '-u root:root -v /var/run/docker.sock:/var/run/docker.sock -v $JENKINS_DATA:$JENKINS_DATA -e JENKINS_DATA=$JENKINS_DATA'
         }
     }
+    parameters {
+        credentials(name: 'GITHUB_USER', description: 'Github username and password', defaultValue: '', credentialType: "Username with password", required: true)
+    }
     environment {
         CI = 'true'
     }
