@@ -42,6 +42,7 @@ EMAIL_URL="http://$NODE_IP:$PORT/"
 # TODO: Install Magento with correct url
 
 # Output URLs
+echo "\n\n"
 echo "Magento: $MAGENTO_URL"
 echo "Admin: admin/admin123"
 echo "PHPMyAdmin: $PHPMYADMIN_URL"
