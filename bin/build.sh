@@ -43,7 +43,7 @@ npm install && npm run build
 cd ../..
 mkdir -p server/app/code/Magestore/Webpos/build/apps
 rm -Rf server/app/code/Magestore/Webpos/build/apps/pos
-cp -Rf build server/app/code/Magestore/Webpos/build/apps/pos
+cp -Rf client/pos/build server/app/code/Magestore/Webpos/build/apps/pos
 
 # Start service
 cp ../$COMPOSE_FILE docker-compose.yml
@@ -86,6 +86,7 @@ echo "Magento: $MAGENTO_URL/admin"
 echo "Admin: admin/admin123"
 echo "PHPMyAdmin: $PHPMYADMIN_URL"
 echo "EMAIL: $EMAIL_URL"
+echo ""
 
 # Living time
 set -x
