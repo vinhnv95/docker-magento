@@ -38,6 +38,8 @@ fi
 git checkout FETCH_HEAD
 
 ls -l
+cat README.md
+exit
 
 env
 
