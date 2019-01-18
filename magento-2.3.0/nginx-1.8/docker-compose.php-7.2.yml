@@ -2,6 +2,8 @@ version: '3'
 services:
   magento:
     image: php:7.2.13-apache
+    volumes:
+      - ./server/app/code/Magestore:/var/www/html/app/code/Magestore
     ports:
       - 8080-8089:80
     networks:
