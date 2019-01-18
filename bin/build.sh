@@ -24,6 +24,15 @@ fi
 mkdir $HASH_NAME && cd $HASH_NAME
 
 # TODO: Build WebPOS and deploy to Magento Server
+GITHUB_URL="https://$GITHUB_USERNAME:$GITHUB_PASSWORD@github.com/$GITHUB_REPO"
+IS_PULL=`node -e "if ('$GITHUB_BRANCH'.indexOf('/') !== -1) console.log('1');"`
+
+if [[ -z "${IS_PULL}" ]]; then
+    echo "Checking out branch $GITHUB_BRANCH"
+else
+    echo "Checking out pull request $GITHUB_BRANCH"
+fi
+
 env
 
 # Start service
@@ -42,11 +51,13 @@ EMAIL_URL="http://$NODE_IP:$PORT/"
 # TODO: Install Magento with correct url
 
 # Output URLs
-echo "\n\n"
+echo ""
+echo ""
 echo "Magento: $MAGENTO_URL"
 echo "Admin: admin/admin123"
 echo "PHPMyAdmin: $PHPMYADMIN_URL"
 echo "EMAIL: $EMAIL_URL"
 
 # Living time
+set -x
 sleep $TIME_TO_LIVE
