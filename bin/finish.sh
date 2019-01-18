@@ -11,6 +11,7 @@ HASH_NAME=`echo -n "$HTTP_SERVER-$PHP_VERSION-$MAGENTO_VERSION-$GITHUB_REPO-$GIT
 
 if [ -d "$HASH_NAME" ]; then
     cd $HASH_NAME
-    # TODO: Stop service
+    # Stop service
+    docker-compose down
     cd .. && rm -rf $HASH_NAME
 fi
