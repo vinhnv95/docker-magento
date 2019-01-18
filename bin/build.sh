@@ -27,11 +27,17 @@ mkdir $HASH_NAME && cd $HASH_NAME
 GITHUB_URL="https://$GITHUB_USERNAME:$GITHUB_PASSWORD@github.com/$GITHUB_REPO"
 IS_PULL=`node -e "if ('$GITHUB_BRANCH'.indexOf('/') !== -1) console.log('1');"`
 
+git init && git remote add origin $GITHUB_URL
 if [[ -z "${IS_PULL}" ]]; then
-    echo "Checking out branch $GITHUB_BRANCH"
+    echo "Checking out branch $GITHUB_BRANCH..."
+    git fetch --depth 1 origin $GITHUB_BRANCH
 else
-    echo "Checking out pull request $GITHUB_BRANCH"
+    echo "Checking out pull request $GITHUB_BRANCH..."
+    git fetch --depth 1 origin +refs/$GITHUB_BRANCH/merge
 fi
+git checkout FETCH_HEAD
+
+ls -l
 
 env
 
