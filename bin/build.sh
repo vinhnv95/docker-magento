@@ -23,7 +23,7 @@ fi
 
 mkdir $HASH_NAME && cd $HASH_NAME
 
-# TODO: Build WebPOS and deploy to Magento Server
+# Build WebPOS and deploy to Magento Server
 GITHUB_URL="https://$GITHUB_USERNAME:$GITHUB_PASSWORD@github.com/$GITHUB_REPO"
 IS_PULL=`node -e "if ('$GITHUB_BRANCH'.indexOf('/') !== -1) console.log('1');"`
 
@@ -37,31 +37,51 @@ else
 fi
 git checkout FETCH_HEAD
 
-ls -l
-cat README.md
-exit
-
-env
+# Build POS
+cd client/pos
+npm install && npm run build
+mkdir -p ../../server/app/code/Magestore/Webpos/build/apps
+rm -Rf ../../server/app/code/Magestore/Webpos/build/apps/pos
+cp -Rf build ../../server/app/code/Magestore/Webpos/build/apps/pos
 
 # Start service
 cp ../$COMPOSE_FILE docker-compose.yml
-docker-compose -p $HASH_NAME up -d
+docker-compose up -d
 
-PORT=`docker-compose -p $HASH_NAME port --protocol=tcp magento 80 | sed 's/0.0.0.0://'`
-MAGENTO_URL="http://$NODE_IP:$PORT/"
+PORT=`docker-compose port --protocol=tcp magento 80 | sed 's/0.0.0.0://'`
+MAGENTO_URL="http://$NODE_IP:$PORT"
 
-PORT=`docker-compose -p $HASH_NAME port --protocol=tcp phpmyadmin 80 | sed 's/0.0.0.0://'`
-PHPMYADMIN_URL="http://$NODE_IP:$PORT/"
+PORT=`docker-compose port --protocol=tcp phpmyadmin 80 | sed 's/0.0.0.0://'`
+PHPMYADMIN_URL="http://$NODE_IP:$PORT"
 
-PORT=`docker-compose -p $HASH_NAME port --protocol=tcp mailhog 8025 | sed 's/0.0.0.0://'`
-EMAIL_URL="http://$NODE_IP:$PORT/"
+PORT=`docker-compose port --protocol=tcp mailhog 8025 | sed 's/0.0.0.0://'`
+EMAIL_URL="http://$NODE_IP:$PORT"
 
-# TODO: Install Magento with correct url
+# Correct magento url
+docker-compose exec -u www-data -T magento bash -c \
+    "php bin/magento setup:store-config:set \
+    --admin-use-security-key=0 \
+    --base-url-secure=$MAGENTO_URL/ \
+    --base-url=$MAGENTO_URL/ "
+
+COUNT_LIMIT=120 # timeout 360 seconds
+while ! RESPONSE=`curl -s $MAGENTO_URL/magento_version`
+do
+    if [ $COUNT_LIMIT -lt 1 ]; then
+        break
+    fi
+    COUNT_LIMIT=$(( COUNT_LIMIT - 1 ))
+    sleep 3
+done
+
+if [[ ${RESPONSE:0:8} != "Magento/" ]]; then
+    docker-compose restart magento
+fi
 
 # Output URLs
 echo ""
 echo ""
-echo "Magento: $MAGENTO_URL"
+echo "Magento: $MAGENTO_URL/admin"
 echo "Admin: admin/admin123"
 echo "PHPMyAdmin: $PHPMYADMIN_URL"
 echo "EMAIL: $EMAIL_URL"
