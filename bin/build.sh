@@ -93,6 +93,9 @@ docker-compose exec -u www-data -T magento bash -c \
 # Output URLs
 echo ""
 echo ""
+echo "Server Info: $HTTP_SERVER php-$PHP_VERSION Magento-$MAGENTO_VERSION"
+echo "Built from: $GITHUB_REPO $GITHUB_BRANCH"
+echo ""
 echo "Magento: $MAGENTO_URL/admin"
 echo "Admin: admin/admin123"
 echo "PHPMyAdmin: $PHPMYADMIN_URL"
