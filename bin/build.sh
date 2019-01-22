@@ -50,6 +50,7 @@ rm -Rf server/app/code/Magestore/Webpos/build/apps/pos
 cp -Rf client/pos/build server/app/code/Magestore/Webpos/build/apps/pos
 
 # Start service
+set +x
 cp ../$COMPOSE_FILE docker-compose.yml
 docker-compose up -d
 
@@ -91,7 +92,6 @@ docker-compose exec -u www-data -T magento bash -c \
     --base-url=$MAGENTO_URL/ "
 
 # Output URLs
-set +x
 echo ""
 echo ""
 echo "Magento: $MAGENTO_URL/admin"
