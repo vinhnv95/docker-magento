@@ -88,7 +88,6 @@ fi
 docker-compose exec -u www-data -T magento bash -c \
     "php bin/magento setup:store-config:set \
     --admin-use-security-key=0 \
-    --base-url-secure=$MAGENTO_URL/ \
     --base-url=$MAGENTO_URL/ "
 
 # Output URLs
