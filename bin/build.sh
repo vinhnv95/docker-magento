@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-set +x
-
 if [[ ! -z "${JENKINS_DATA}" ]]; then
     cd $JENKINS_DATA/workspace/$JOB_BASE_NAME
 fi
@@ -87,6 +85,7 @@ if [[ ${RESPONSE:0:8} != "Magento/" ]]; then
 fi
 
 # Output URLs
+set +x
 echo ""
 echo ""
 echo "Magento: $MAGENTO_URL/admin"
