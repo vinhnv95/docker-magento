@@ -50,7 +50,6 @@ rm -Rf server/app/code/Magestore/Webpos/build/apps/pos
 cp -Rf client/pos/build server/app/code/Magestore/Webpos/build/apps/pos
 
 # Start service
-set +x
 cp ../$COMPOSE_FILE docker-compose.yml
 docker-compose up -d
 

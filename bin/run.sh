@@ -7,7 +7,6 @@ fi
 HASH_NAME=`echo -n "$HTTP_SERVER-$PHP_VERSION-$MAGENTO_VERSION-$GITHUB_REPO-$GITHUB_BRANCH" | sha1sum | cut -d' ' -f 1`
 cd $HASH_NAME
 
-# Show Information
 PORT=`docker-compose port --protocol=tcp magento 80 | sed 's/0.0.0.0://'`
 MAGENTO_URL="http://$NODE_IP:$PORT"
 
@@ -17,8 +16,7 @@ PHPMYADMIN_URL="http://$NODE_IP:$PORT"
 PORT=`docker-compose port --protocol=tcp mailhog 8025 | sed 's/0.0.0.0://'`
 EMAIL_URL="http://$NODE_IP:$PORT"
 
-# Output URLs
-echo ""
+# Show Information
 echo ""
 echo "Server Info: $HTTP_SERVER php-$PHP_VERSION Magento-$MAGENTO_VERSION"
 echo "Built from: $GITHUB_REPO $GITHUB_BRANCH"
