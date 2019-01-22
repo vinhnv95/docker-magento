@@ -7,7 +7,9 @@ services:
     ports:
       - 8080-8089:80
     networks:
-      - webnet
+      webnet:
+        aliases:
+          - localhost.com
 
   db:
     image: magestore/mftf-db:percona-5.7

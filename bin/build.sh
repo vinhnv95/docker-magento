@@ -37,9 +37,9 @@ else
 fi
 git checkout FETCH_HEAD
 
-# if [ $? -ne 0 ]; then
-#     exit 1
-# fi
+if [ $? -ne 0 ]; then
+    exit 1
+fi
 
 # Build POS
 cd client/pos
@@ -62,15 +62,9 @@ PHPMYADMIN_URL="http://$NODE_IP:$PORT"
 PORT=`docker-compose port --protocol=tcp mailhog 8025 | sed 's/0.0.0.0://'`
 EMAIL_URL="http://$NODE_IP:$PORT"
 
-# Correct magento url
-docker-compose exec -u www-data -T magento bash -c \
-    "php bin/magento setup:store-config:set \
-    --admin-use-security-key=0 \
-    --base-url-secure=$MAGENTO_URL/ \
-    --base-url=$MAGENTO_URL/ "
-
+# Check magento installation
 COUNT_LIMIT=120 # timeout 360 seconds
-while ! RESPONSE=`curl -s $MAGENTO_URL/magento_version`
+while ! RESPONSE=`docker-compose exec -T magento curl -s https://localhost.com/magento_version`
 do
     if [ $COUNT_LIMIT -lt 1 ]; then
         break
@@ -83,11 +77,14 @@ if [[ ${RESPONSE:0:8} != "Magento/" ]]; then
     docker-compose restart magento
     PORT=`docker-compose port --protocol=tcp magento 80 | sed 's/0.0.0.0://'`
     MAGENTO_URL="http://$NODE_IP:$PORT"
-    docker-compose exec -u www-data -T magento bash -c \
-        "php bin/magento setup:store-config:set \
-        --base-url-secure=$MAGENTO_URL/ \
-        --base-url=$MAGENTO_URL/ "
 fi
+
+# Correct magento url
+docker-compose exec -u www-data -T magento bash -c \
+    "php bin/magento setup:store-config:set \
+    --admin-use-security-key=0 \
+    --base-url-secure=$MAGENTO_URL/ \
+    --base-url=$MAGENTO_URL/ "
 
 # Output URLs
 set +x
