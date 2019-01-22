@@ -27,6 +27,11 @@ pipeline {
                 }
             }
         }
+        stage('Running') {
+            steps {
+                sh './bin/run.sh'
+            }
+        }
     }
     post {
         always {

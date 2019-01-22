@@ -57,12 +57,6 @@ docker-compose up -d
 PORT=`docker-compose port --protocol=tcp magento 80 | sed 's/0.0.0.0://'`
 MAGENTO_URL="http://$NODE_IP:$PORT"
 
-PORT=`docker-compose port --protocol=tcp phpmyadmin 80 | sed 's/0.0.0.0://'`
-PHPMYADMIN_URL="http://$NODE_IP:$PORT"
-
-PORT=`docker-compose port --protocol=tcp mailhog 8025 | sed 's/0.0.0.0://'`
-EMAIL_URL="http://$NODE_IP:$PORT"
-
 # Check magento installation
 COUNT_LIMIT=120 # timeout 600 seconds
 while ! RESPONSE=`docker-compose exec -T magento curl -s https://localhost.com/magento_version`
@@ -89,19 +83,3 @@ docker-compose exec -u www-data -T magento bash -c \
     "php bin/magento setup:store-config:set \
     --admin-use-security-key=0 \
     --base-url=$MAGENTO_URL/ "
-
-# Output URLs
-echo ""
-echo ""
-echo "Server Info: $HTTP_SERVER php-$PHP_VERSION Magento-$MAGENTO_VERSION"
-echo "Built from: $GITHUB_REPO $GITHUB_BRANCH"
-echo ""
-echo "Magento: $MAGENTO_URL/admin"
-echo "Admin: admin/admin123"
-echo "PHPMyAdmin: $PHPMYADMIN_URL"
-echo "EMAIL: $EMAIL_URL"
-echo ""
-
-# Living time
-set -x
-sleep $TIME_TO_LIVE
