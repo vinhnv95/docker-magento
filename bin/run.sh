@@ -8,6 +8,11 @@ HASH_NAME=`echo -n "$HTTP_SERVER-$PHP_VERSION-$MAGENTO_VERSION-$GITHUB_REPO-$GIT
 cd $HASH_NAME
 
 PORT=`docker-compose port --protocol=tcp magento 80 | sed 's/0.0.0.0://'`
+if [[ -z "$PORT" ]]; then
+    echo "Server is not running..."
+    exit 1
+fi
+
 MAGENTO_URL="http://$NODE_IP:$PORT"
 
 PORT=`docker-compose port --protocol=tcp phpmyadmin 80 | sed 's/0.0.0.0://'`

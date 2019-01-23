@@ -1,12 +1,11 @@
 #!/usr/bin/env sh
 
-set -x
-
 if [[ ! -z "${JENKINS_DATA}" ]]; then
     cd $JENKINS_DATA/workspace/$JOB_BASE_NAME
 fi
 
 # Build script here
+set -x
 COMPOSE_FILE="magento-$MAGENTO_VERSION/$HTTP_SERVER/docker-compose.php-$PHP_VERSION.yml"
 if [ ! -f "$COMPOSE_FILE" ]; then
     echo "We do not support for Magento $MAGENTO_VERSION on $HTTP_SERVER with php $PHP_VERSION"
@@ -17,7 +16,6 @@ HASH_NAME=`echo -n "$HTTP_SERVER-$PHP_VERSION-$MAGENTO_VERSION-$GITHUB_REPO-$GIT
 
 if [ -d "$HASH_NAME" ]; then
     echo 'Server is running...'
-    sleep $TIME_TO_LIVE
     exit
 fi
 
