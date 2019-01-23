@@ -49,7 +49,7 @@ cp -Rf client/pos/build server/app/code/Magestore/Webpos/build/apps/pos
 
 # Start service
 cp ../$COMPOSE_FILE docker-compose.yml
-docker-compose up -d
+COMPOSE_HTTP_TIMEOUT=200 docker-compose up -d
 
 PORT=`docker-compose port --protocol=tcp magento 80 | sed 's/0.0.0.0://'`
 MAGENTO_URL="http://$NODE_IP:$PORT"
