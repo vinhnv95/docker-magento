@@ -54,6 +54,23 @@ COMPOSE_HTTP_TIMEOUT=200 docker-compose up -d
 PORT=`docker-compose port --protocol=tcp magento 80 | sed 's/0.0.0.0://'`
 MAGENTO_URL="http://$NODE_IP:$PORT"
 
+# Install required module
+docker-compose exec -u www-data -T magento bash -c \
+    "echo '{ \
+        \"http-basic\": { \
+            \"repo.magento.com\": { \
+                \"username\": \"a3380186b4ffb670466a01331a3fb375\", \
+                \"password\": \"cfe4874a50552827da901971d249322a\" \
+            } \
+        } \
+    }' > auth.json ; \
+    php vendor/composer/composer/bin/composer require \
+    authorizenet/authorizenet \
+    paypal/rest-api-sdk-php:* \
+    paypal/merchant-sdk-php:* \
+    stripe/stripe-php:* \
+    zendframework/zend-barcode;"
+
 # Check magento installation
 COUNT_LIMIT=120 # timeout 600 seconds
 while ! RESPONSE=`docker-compose exec -T magento curl -s https://localhost.com/magento_version`
@@ -80,20 +97,3 @@ docker-compose exec -u www-data -T magento bash -c \
     "php bin/magento setup:store-config:set \
     --admin-use-security-key=0 \
     --base-url=$MAGENTO_URL/ "
-
-# Install required module
-docker-compose exec -u www-data -T magento bash -c \
-    "echo '{ \
-        \"http-basic\": { \
-            \"repo.magento.com\": { \
-                \"username\": \"a3380186b4ffb670466a01331a3fb375\", \
-                \"password\": \"cfe4874a50552827da901971d249322a\" \
-            } \
-        } \
-    }' > auth.json ; \
-    php vendor/composer/composer/bin/composer require \
-    authorizenet/authorizenet \
-    paypal/rest-api-sdk-php:* \
-    paypal/merchant-sdk-php:* \
-    stripe/stripe-php:* \
-    zendframework/zend-barcode;"
