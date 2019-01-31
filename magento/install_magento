@@ -1,7 +1,7 @@
 #!/bin/bash
-# 
+#
 # Install Magento Script
-# 
+#
 # install_magento DATABASE_NAME URL
 #
 
@@ -36,6 +36,6 @@ php bin/magento setup:install --use-rewrites=1 \
     --key=8f1e9249ca82c072122ae8d08bc0b0cf
 
 # Update config for testing
-php bin/magento config:set cms/wysiwyg/enabled disabled
-php bin/magento config:set admin/security/admin_account_sharing 1
-php bin/magento config:set admin/captcha/enable 0
+#php bin/magento config:set cms/wysiwyg/enabled disabled
+#php bin/magento config:set admin/security/admin_account_sharing 1
+#php bin/magento config:set admin/captcha/enable 0
