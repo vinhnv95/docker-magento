@@ -15,3 +15,5 @@ if [ -d "$HASH_NAME" ]; then
     docker-compose down
     cd .. && rm -rf $HASH_NAME
 fi
+
+docker volume prune -f
