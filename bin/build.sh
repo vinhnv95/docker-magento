@@ -23,7 +23,7 @@ mkdir $HASH_NAME && cd $HASH_NAME
 
 # Build WebPOS and deploy to Magento Server
 GITHUB_URL="https://$GITHUB_USERNAME:$GITHUB_PASSWORD@github.com/$GITHUB_REPO"
-IS_PULL=`node -e "if ('$GITHUB_BRANCH'.indexOf('/') !== -1) console.log('1');"`
+IS_PULL=`node -e "if ('$GITHUB_BRANCH'.indexOf('pull/') !== -1) console.log('1');"`
 
 git init && git remote add origin $GITHUB_URL
 if [[ -z "${IS_PULL}" ]]; then
