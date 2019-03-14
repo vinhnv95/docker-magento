@@ -19,7 +19,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: magento
     volumes:
-      - ../../db/conf.d:/etc/my.cnf.d
+      - ../db/conf.d:/etc/my.cnf.d
     networks:
       - webnet
 
